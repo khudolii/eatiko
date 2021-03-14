@@ -7,6 +7,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Data
 @Entity
@@ -19,11 +20,8 @@ public class Product {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @CollectionTable (name = "product_type", joinColumns = @JoinColumn("product_id"))
-    private EProductTypes productType;
-
-    @CollectionTable (name = "shelf_life", joinColumns = @JoinColumn(name = "product_id"))
-    private EShelfLife shelfLifeType;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private ProductType productType;
 
     @JsonFormat(pattern = "yyyy-mm-dd HH:mm:ss")
     @Column(updatable = false)
