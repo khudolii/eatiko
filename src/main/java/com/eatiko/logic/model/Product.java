@@ -1,30 +1,33 @@
 package com.eatiko.logic.model;
 
-import com.eatiko.logic.model.enums.EProductTypes;
 import com.eatiko.logic.model.enums.EShelfLife;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Set;
 
 @Data
 @Entity
+@Table(name = "product", schema = "public")
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column (name = "product_id")
     private Long productId;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "name",nullable = false, unique = true)
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private ProductType productType;
 
+    @Enumerated(EnumType.STRING)
+    private EShelfLife shelfLifeType;
+
     @JsonFormat(pattern = "yyyy-mm-dd HH:mm:ss")
-    @Column(updatable = false)
+    @Column(name = "create_date",updatable = false)
     private LocalDateTime createDate;
 
     @PrePersist
