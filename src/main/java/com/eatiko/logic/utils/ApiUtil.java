@@ -13,11 +13,10 @@ public class ApiUtil {
     private static final Class<RecipeProcessor> CLAZZ = RecipeProcessor.class;
     private static final Logger logger = Logger.getLogger(CLAZZ);
 
-    @Autowired
-    private static OkHttpClient client;
 
     public static JSONObject sendGETRequestToApi(String requestURL) {
         try {
+            OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
                     .url(requestURL)
                     .build();

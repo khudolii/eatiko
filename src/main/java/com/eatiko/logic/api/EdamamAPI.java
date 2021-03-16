@@ -11,7 +11,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EdamamAPI implements BaseAPI<Product, RecipeDTO> {
+public class EdamamAPI implements BaseAPI<RecipeDTO> {
 
     private static final Class<RecipeProcessor> CLAZZ = RecipeProcessor.class;
     private static final Logger logger = Logger.getLogger(CLAZZ);
@@ -31,14 +31,14 @@ public class EdamamAPI implements BaseAPI<Product, RecipeDTO> {
     }
 
     @Override
-    public String getApiRequestWithParameter(Product entity) {
+    public String getApiRequestWithParameter(String parameter) {
         String url = getApiURL();
         return url + "&q=" +
-                entity.getName();
+                parameter;
     }
 
     @Override
-    public String getApiRequestWithParameters(List<Product> entities) {
+    public String getApiRequestWithParameters(List<String> entities) {
         return null;
     }
 

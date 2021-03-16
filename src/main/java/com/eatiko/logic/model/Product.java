@@ -34,4 +34,8 @@ public class Product {
     private void onCreate(){
         this.createDate = LocalDateTime.now();
     }
+
+    public Product(String name) {
+        this.name = name;
+    }
 }

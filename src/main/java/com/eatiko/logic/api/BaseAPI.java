@@ -4,10 +4,10 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-public interface BaseAPI <ENTITY, DTO> {
+public interface BaseAPI <DTO> {
     String getApiURL();
-    String getApiRequestWithParameter (ENTITY entity);
-    String getApiRequestWithParameters (List<ENTITY> entities);
+    String getApiRequestWithParameter (String parameter);
+    String getApiRequestWithParameters (List<String> parameters);
     List<DTO> createDTOListByJSON(JSONObject json);
 
 
