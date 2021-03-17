@@ -4,11 +4,11 @@ import com.eatiko.logic.api.BaseAPI;
 import com.eatiko.logic.dto.RecipeDTO;
 import com.eatiko.logic.model.Product;
 import com.eatiko.logic.model.Recipe;
+import com.eatiko.logic.services.RecipeService;
 import com.eatiko.logic.utils.ApiUtil;
-import lombok.val;
 import org.json.JSONObject;
 import org.reflections.Reflections;
-import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -21,7 +21,15 @@ public class RecipeProcessor {
     private static final Logger logger = Logger.getLogger(CLAZZ);
     private static boolean isRunning = false;
 
-    @Scheduled(fixedDelay = 5000)
+    private RecipeService recipeService;
+
+    @Autowired
+    public RecipeProcessor(RecipeService recipeService) {
+        this.recipeService = recipeService;
+    }
+
+
+    //@Scheduled(fixedDelay = 5000)
     public void startParsingRecipes() {
         if (isRunning) {
             logger.info("RecipeProcessor is running! Next iteration will start later");
@@ -31,10 +39,7 @@ public class RecipeProcessor {
             try {
                 Set<Product> products = new HashSet<>(); //TODO add getProduct method
                 products.add(new Product("coffee"));
-                products.add(new Product("chicken"));
-                products.add(new Product("pork"));
-                products.add(new Product("sugar"));
-                products.add(new Product("eggs"));
+                //products.add(new Product("chicken"));
                 Set<String> recipesNames = new HashSet<>();
                 if (products == null || products.isEmpty()) {
                     return;
@@ -72,8 +77,8 @@ public class RecipeProcessor {
                         List<RecipeDTO> recipeDTOList = api.createDTOListByJSON(jsonObject);
                         if (recipeDTOList != null && !recipeDTOList.isEmpty()) {
                             for (RecipeDTO recipeDTO : recipeDTOList) {
-                                if (recipeDTO.getLabel() != null && !recipesNames.contains(recipeDTO.getLabel())) {
-                                    System.out.println(recipeDTO.toString());
+                                if (recipeDTO.getName() != null && !recipesNames.contains(recipeDTO.getName())) {
+                                    Recipe recipe = recipeService.createRecipe(recipeDTO);
                                 }
                             }
                         }
@@ -85,10 +90,4 @@ public class RecipeProcessor {
         }
     }
 
-    public static void main(String[] args) {
-        RecipeProcessor recipeProcessor = new RecipeProcessor();
-        recipeProcessor.startParsingRecipes();
-        System.out.println("END");
-        return;
-    }
 }

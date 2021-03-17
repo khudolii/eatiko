@@ -1,7 +1,6 @@
 package com.eatiko.logic.api;
 
 import com.eatiko.logic.dto.RecipeDTO;
-import com.eatiko.logic.model.Product;
 import com.eatiko.logic.processors.RecipeProcessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.log4j.Logger;

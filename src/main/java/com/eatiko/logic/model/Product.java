@@ -6,6 +6,9 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -14,10 +17,10 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name = "product_id")
+    @Column(name = "product_id")
     private Long productId;
 
-    @Column(name = "name",nullable = false, unique = true)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -27,15 +30,22 @@ public class Product {
     private EShelfLife shelfLifeType;
 
     @JsonFormat(pattern = "yyyy-mm-dd HH:mm:ss")
-    @Column(name = "create_date",updatable = false)
+    @Column(name = "create_date", updatable = false)
     private LocalDateTime createDate;
 
-    @PrePersist
-    private void onCreate(){
-        this.createDate = LocalDateTime.now();
-    }
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "product_ingredient",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
+    private List<Ingredient> ingredients = new ArrayList<>();
 
     public Product(String name) {
         this.name = name;
     }
+
+    @PrePersist
+    private void onCreate() {
+        this.createDate = LocalDateTime.now();
+    }
+
 }

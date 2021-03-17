@@ -1,9 +1,11 @@
 package com.eatiko.logic.model;
 
 import com.eatiko.logic.model.enums.EUserRole;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -38,5 +40,13 @@ public class ACLUser {
     @JoinColumn (name = "product_id")
     private Set<Product> products;
 
+    @JsonFormat(pattern = "yyyy-mm-dd HH:mm:ss")
+    @Column(name = "create_date",updatable = false)
+    private LocalDateTime createDate;
+
+    @PrePersist
+    private void onCreate(){
+        this.createDate = LocalDateTime.now();
+    }
 
 }

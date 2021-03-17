@@ -5,23 +5,23 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @Data
-@Table(name = "product_type", schema = "public")
-public class ProductType {
-
+public class CuisineType {
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
-    @Column(name = "product_type_id")
-    private Long productTypeId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long cousineTypeId;
 
-    @OneToMany (fetch = FetchType.EAGER, mappedBy = "productType")
-    private Set<Product> products;
+    @Column (nullable = false, unique = true)
+    private String cousineTypeName;
 
-    @Column (name = "type_name", nullable = false, unique = true)
-    private String typeName;
+    @OneToMany (fetch = FetchType.EAGER, mappedBy = "cuisineType")
+    private List<Recipe> recipes = new ArrayList<>();
 
     @JsonFormat(pattern = "yyyy-mm-dd HH:mm:ss")
     @Column(name = "create_date",updatable = false)
@@ -31,4 +31,5 @@ public class ProductType {
     private void onCreate(){
         this.createDate = LocalDateTime.now();
     }
+
 }
