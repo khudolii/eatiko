@@ -22,7 +22,6 @@ public class RecipeFacade implements EntityConvertor<Recipe, RecipeDTO> {
     }
 
 
-
     @Override
     public Recipe getEntity(RecipeDTO recipeDTO) {
         if (recipeDTO == null) {

@@ -2,8 +2,10 @@ package com.eatiko.logic.processors;
 
 import com.eatiko.logic.api.BaseAPI;
 import com.eatiko.logic.dto.RecipeDTO;
+import com.eatiko.logic.model.Ingredient;
 import com.eatiko.logic.model.Product;
 import com.eatiko.logic.model.Recipe;
+import com.eatiko.logic.services.IngredientService;
 import com.eatiko.logic.services.RecipeService;
 import com.eatiko.logic.utils.ApiUtil;
 import org.json.JSONObject;
@@ -22,12 +24,13 @@ public class RecipeProcessor {
     private static boolean isRunning = false;
 
     private RecipeService recipeService;
+    private IngredientService ingredientService;
 
     @Autowired
-    public RecipeProcessor(RecipeService recipeService) {
+    public RecipeProcessor(RecipeService recipeService, IngredientService ingredientService) {
         this.recipeService = recipeService;
+        this.ingredientService = ingredientService;
     }
-
 
     //@Scheduled(fixedDelay = 5000)
     public void startParsingRecipes() {
@@ -38,7 +41,7 @@ public class RecipeProcessor {
             List<BaseAPI<RecipeDTO>> apisList = new ArrayList<>();
             try {
                 Set<Product> products = new HashSet<>(); //TODO add getProduct method
-                products.add(new Product("coffee"));
+                products.add(new Product("apple"));
                 //products.add(new Product("chicken"));
                 Set<String> recipesNames = new HashSet<>();
                 if (products == null || products.isEmpty()) {
@@ -79,6 +82,11 @@ public class RecipeProcessor {
                             for (RecipeDTO recipeDTO : recipeDTOList) {
                                 if (recipeDTO.getName() != null && !recipesNames.contains(recipeDTO.getName())) {
                                     Recipe recipe = recipeService.createRecipe(recipeDTO);
+                                    List<Ingredient> ingredients = recipe.getIngredients();
+                                    for (Ingredient _ingredient : ingredients) {
+                                        _ingredient.setRecipe(recipe);
+                                        ingredientService.createIngredient(_ingredient);
+                                    }
                                 }
                             }
                         }

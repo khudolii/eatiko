@@ -2,6 +2,7 @@ package com.eatiko.logic.services;
 
 import com.eatiko.logic.dto.RecipeDTO;
 import com.eatiko.logic.facade.RecipeFacade;
+import com.eatiko.logic.model.Ingredient;
 import com.eatiko.logic.model.Recipe;
 import com.eatiko.logic.repository.IngredientRepository;
 import com.eatiko.logic.repository.RecipeRepository;
@@ -25,6 +26,10 @@ public class RecipeService {
     public Recipe createRecipe(RecipeDTO recipeDTO) {
         Recipe recipe = recipeFacade.getEntity(recipeDTO);
         System.out.println(recipe.toString());
+        return createRecipe(recipe);
+    }
+
+    public Recipe createRecipe(Recipe recipe) {
         return recipeRepository.save(recipe);
     }
 }

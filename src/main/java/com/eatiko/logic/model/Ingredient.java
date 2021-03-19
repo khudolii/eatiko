@@ -15,8 +15,8 @@ public class Ingredient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ingredientId;
 
-    @Column (nullable = false)
-    private Long productId;
+    @Column (nullable = true)
+    private Long productId = 5L;
 
     @Column (nullable = false)
     private String name;
@@ -27,7 +27,7 @@ public class Ingredient {
     @Column
     private String imageURL;
 
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.ALL)
     private Recipe recipe;
 
     @ManyToMany(mappedBy = "ingredients")
