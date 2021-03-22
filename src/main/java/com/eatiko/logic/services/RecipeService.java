@@ -2,7 +2,6 @@ package com.eatiko.logic.services;
 
 import com.eatiko.logic.dto.RecipeDTO;
 import com.eatiko.logic.facade.RecipeFacade;
-import com.eatiko.logic.model.Ingredient;
 import com.eatiko.logic.model.Recipe;
 import com.eatiko.logic.repository.IngredientRepository;
 import com.eatiko.logic.repository.RecipeRepository;

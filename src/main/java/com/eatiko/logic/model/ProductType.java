@@ -17,8 +17,8 @@ public class ProductType {
     @Column(name = "product_type_id")
     private Long productTypeId;
 
-    @OneToMany (fetch = FetchType.EAGER, mappedBy = "productType")
-    private Set<Product> products;
+/*    @OneToMany (fetch = FetchType.EAGER, mappedBy = "productType")
+    private Set<Product> products;*/
 
     @Column (name = "type_name", nullable = false, unique = true)
     private String typeName;

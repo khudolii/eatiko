@@ -8,7 +8,6 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Data
 @Entity
@@ -23,7 +22,7 @@ public class Product {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+   @ManyToOne(fetch = FetchType.EAGER)
     private ProductType productType;
 
     @Enumerated(EnumType.STRING)
@@ -39,13 +38,24 @@ public class Product {
             inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
     private List<Ingredient> ingredients = new ArrayList<>();
 
-    public Product(String name) {
+  /*  public Product(String name) {
         this.name = name;
-    }
+    }*/
 
     @PrePersist
     private void onCreate() {
         this.createDate = LocalDateTime.now();
     }
 
+    @Override
+    public String toString() {
+        return "Product{" +
+                "productId=" + productId +
+                ", name='" + name + '\'' +
+                ", productType=" + productType +
+                ", shelfLifeType=" + shelfLifeType +
+                ", createDate=" + createDate +
+                ", ingredients=" + ingredients +
+                '}';
+    }
 }

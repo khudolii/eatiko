@@ -16,7 +16,7 @@ public class Ingredient {
     private Long ingredientId;
 
     @Column (nullable = true)
-    private Long productId = 5L;
+    private Long productId;
 
     @Column (nullable = false)
     private String name;
@@ -42,4 +42,17 @@ public class Ingredient {
         this.createDate = LocalDateTime.now();
     }
 
+    @Override
+    public String toString() {
+        return "Ingredient{" +
+                "ingredientId=" + ingredientId +
+                ", productId=" + productId +
+                ", name='" + name + '\'' +
+                ", weight=" + weight +
+                ", imageURL='" + imageURL + '\'' +
+                ", recipe=" + recipe +
+                ", products=" + products +
+                ", createDate=" + createDate +
+                '}';
+    }
 }
