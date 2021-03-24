@@ -55,6 +55,8 @@ public class ACLUser implements UserDetails {
         this.createDate = LocalDateTime.now();
     }
 
+    public ACLUser() {
+    }
     /*
      * SECURITY
      * */

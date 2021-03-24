@@ -1,5 +1,6 @@
 package com.eatiko.logic.payload.request;
 
+import com.eatiko.logic.annotations.PasswordMatches;
 import lombok.Data;
 import lombok.NonNull;
 
