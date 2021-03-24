@@ -43,9 +43,6 @@ public class RecipeProcessor {
             List<BaseAPI<RecipeDTO>> apisList = new ArrayList<>();
             try {
                 List<Product> products = productService.getAllProducts();
-                //products.forEach(System.out::println);
-               // products.add(new Product("apple"));
-                //products.add(new Product("chicken"));
                 Set<String> recipesNames = new HashSet<>();
                 if (products == null || products.isEmpty()) {
                     return;
