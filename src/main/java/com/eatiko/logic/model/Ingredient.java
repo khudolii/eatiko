@@ -15,9 +15,6 @@ public class Ingredient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ingredientId;
 
-    @Column (nullable = true)
-    private Long productId;
-
     @Column (nullable = false)
     private String name;
 
@@ -30,8 +27,9 @@ public class Ingredient {
     @ManyToOne (cascade = CascadeType.ALL)
     private Recipe recipe;
 
-    @ManyToMany(mappedBy = "ingredients")
-    private List<Product> products;
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "product_id")
+    private Product product;
 
     @JsonFormat(pattern = "yyyy-mm-dd HH:mm:ss")
     @Column(name = "create_date",updatable = false)

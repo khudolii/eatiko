@@ -35,14 +35,13 @@ public class ACLUser implements UserDetails {
     @Column(name = "password", nullable = false)
     private String password;
 
+   /* @OneToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "aclUser")
+    private Fridge fridge;*/
+
     @ElementCollection(targetClass = EUserRole.class)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "userId"))
     private Set<EUserRole> userRoles = new HashSet<>();
 
-    /*@OneToMany (fetch = FetchType.LAZY)
-    @JoinColumn (name = "product_id")
-    private Set<Product> products;
-*/
     @JsonFormat(pattern = "yyyy-mm-dd HH:mm:ss")
     @Column(name = "create_date", updatable = false)
     private LocalDateTime createDate;
@@ -57,6 +56,7 @@ public class ACLUser implements UserDetails {
 
     public ACLUser() {
     }
+
     /*
      * SECURITY
      * */

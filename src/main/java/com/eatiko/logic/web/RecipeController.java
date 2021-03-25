@@ -18,4 +18,5 @@ public class RecipeController {
         recipeProcessor.startParsingRecipes();
         return ResponseEntity.ok("Ok");
     }
+
 }

@@ -16,7 +16,8 @@ public class ACLUserFacade implements EntityConvertor<ACLUser, ACLUserDTO> {
             return null;
         }
         ModelMapper modelMapper = new ModelMapper();
-        return modelMapper.map(aclUserDTO, ACLUser.class);    }
+        return modelMapper.map(aclUserDTO, ACLUser.class);
+    }
 
     @Override
     public ACLUserDTO getDTO(ACLUser aclUser) {

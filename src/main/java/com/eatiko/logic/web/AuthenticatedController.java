@@ -69,4 +69,5 @@ public class AuthenticatedController {
         String jwt = AppConstants.SECURITY_TOKEN_PREFIX + jwtTokenProvider.generateToken(authentication);
         return ResponseEntity.ok(new JWTTokenSuccessResponse(true, jwt));
     }
+
 }

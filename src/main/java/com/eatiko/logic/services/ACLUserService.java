@@ -8,8 +8,14 @@ import com.eatiko.logic.model.enums.EUserRole;
 import com.eatiko.logic.repository.ACLUserRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
+
+import java.nio.file.attribute.UserPrincipalNotFoundException;
+import java.security.Principal;
 
 @Service
 public class ACLUserService {
@@ -29,10 +35,10 @@ public class ACLUserService {
 
     public ACLUser addUser(ACLUserDTO aclUserDTO) throws EKCreateUserException {
         try {
-        ACLUser user = aclUserFacade.getEntity(aclUserDTO);
-        if (user == null) {
-            throw new Exception("User entity is null! UserName: " + aclUserDTO.getUserName());
-        }
+            ACLUser user = aclUserFacade.getEntity(aclUserDTO);
+            if (user == null) {
+                throw new Exception("User entity is null! UserName: " + aclUserDTO.getUserName());
+            }
             String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
             user.setPassword(encodedPassword);
             user.getUserRoles().add(EUserRole.USER_ROLE);
@@ -41,7 +47,25 @@ public class ACLUserService {
             return aclUserRepository.save(user);
         } catch (Exception e) {
             logger.error("An error occurred while registering a new user: " + e);
-            throw new EKCreateUserException("An error occurred while registering a new user: " + e);
+            throw new EKCreateUserException("An error occurred while registering a new user");
+        }
+    }
+
+    public ACLUser getCurrentUser(Principal principal) throws Exception {
+        try {
+            String userName = principal.getName();
+            if (StringUtils.isEmpty(userName)) {
+                throw new UserPrincipalNotFoundException("Not found user in principal!");
+            }
+
+            ACLUser user = aclUserRepository.findACLUserByUserName(userName);
+            if (ObjectUtils.isEmpty(user)) {
+                throw new UsernameNotFoundException("User not found with user name - " + userName);
+            }
+            return user;
+        } catch (Exception e) {
+            logger.error("getCurrentUser: " + e);
+            throw new Exception(e);
         }
     }
 }

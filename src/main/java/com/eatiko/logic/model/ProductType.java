@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -17,8 +18,8 @@ public class ProductType {
     @Column(name = "product_type_id")
     private Long productTypeId;
 
-/*    @OneToMany (fetch = FetchType.EAGER, mappedBy = "productType")
-    private Set<Product> products;*/
+    @OneToMany (fetch = FetchType.EAGER, mappedBy = "productType")
+    private List<Product> products;
 
     @Column (name = "type_name", nullable = false, unique = true)
     private String typeName;
