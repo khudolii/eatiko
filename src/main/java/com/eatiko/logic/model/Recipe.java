@@ -1,21 +1,16 @@
 package com.eatiko.logic.model;
 
-import com.eatiko.logic.dto.IngredientDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import lombok.Data;
-import org.springframework.stereotype.Component;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
-@Data
+@Getter
+@Setter
 public class Recipe {
 
     @Id

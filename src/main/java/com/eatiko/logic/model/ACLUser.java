@@ -2,7 +2,8 @@ package com.eatiko.logic.model;
 
 import com.eatiko.logic.model.enums.EUserRole;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,7 +13,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Entity
 public class ACLUser implements UserDetails {
     @Id
@@ -34,9 +36,6 @@ public class ACLUser implements UserDetails {
 
     @Column(name = "password", nullable = false)
     private String password;
-
-   /* @OneToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "aclUser")
-    private Fridge fridge;*/
 
     @ElementCollection(targetClass = EUserRole.class)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "userId"))

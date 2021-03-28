@@ -1,15 +1,17 @@
 package com.eatiko.logic.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
-@Data
-public class Ingredient {
+@Getter
+@Setter
+    public class Ingredient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,9 +26,11 @@ public class Ingredient {
     @Column
     private String imageURL;
 
+    @ToString.Exclude
     @ManyToOne (cascade = CascadeType.ALL)
     private Recipe recipe;
 
+    @ToString.Exclude
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id")
     private Product product;
@@ -44,12 +48,10 @@ public class Ingredient {
     public String toString() {
         return "Ingredient{" +
                 "ingredientId=" + ingredientId +
-                ", productId=" + productId +
                 ", name='" + name + '\'' +
                 ", weight=" + weight +
                 ", imageURL='" + imageURL + '\'' +
                 ", recipe=" + recipe +
-                ", products=" + products +
                 ", createDate=" + createDate +
                 '}';
     }

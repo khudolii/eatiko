@@ -2,8 +2,10 @@ package com.eatiko.logic.web;
 
 import com.eatiko.logic.dto.FridgeDTO;
 import com.eatiko.logic.dto.FridgeProductDTO;
+import com.eatiko.logic.dto.RecipeDTO;
 import com.eatiko.logic.facade.FridgeFacade;
 import com.eatiko.logic.model.Fridge;
+import com.eatiko.logic.model.FridgeProduct;
 import com.eatiko.logic.services.FridgeProductService;
 import com.eatiko.logic.services.FridgeService;
 import com.eatiko.logic.validations.ResponseServiceValidation;
@@ -68,7 +70,6 @@ public class FridgeController {
     @PostMapping("/{fridgeId}/addProduct")
     public ResponseEntity <Object> addProductToFridge (@Valid @RequestBody FridgeProductDTO fridgeProductDTO,
                                                        BindingResult bindingResult, @PathVariable("fridgeId") String fridgeId) {
-        System.out.println(fridgeId);
         try {
             ResponseEntity<Object> errors = responseServiceValidation.mapValidationService(bindingResult);
             if (!ObjectUtils.isEmpty(errors)) {
@@ -81,8 +82,19 @@ public class FridgeController {
             fridgeProductService.addProductToFridge(fridgeProductDTO);
             return new ResponseEntity<>("Product added!", HttpStatus.OK);
         } catch (Exception e) {
-            e.printStackTrace();
+
             return new ResponseEntity<>("Product didn't add!", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/{fridgeId}/getRecipesByFridgeProducts")
+    public ResponseEntity <List<RecipeDTO>> getRecipesByFridgeProducts(@PathVariable("fridgeId") String fridgeId) {
+        try {
+            Long _fId = Long.valueOf(fridgeId);
+            List<FridgeProduct> productsInfFridge = fridgeProductService.findFridgeProductByFridgeId(_fId);
+            return null; //TODO add logic
+        } catch (Exception e) {
+            return null;
         }
     }
 }

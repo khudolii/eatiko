@@ -86,8 +86,6 @@ public class RecipeProcessor {
                                     .forEachOrdered(recipe -> {
                                         List<Ingredient> ingredients = recipe.getIngredients();
                                         ingredients.forEach(_ingredient -> {
-                                            Product p = getProductByIngredient(products, _ingredient);
-                                            _ingredient.setProductId(p == null ? 0L : p.getProductId());
                                             _ingredient.setRecipe(recipe);
                                             ingredientService.createIngredient(_ingredient);
                                         });

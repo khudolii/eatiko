@@ -1,25 +1,25 @@
 package com.eatiko.logic.services;
 
 import com.eatiko.logic.dto.FridgeDTO;
-import com.eatiko.logic.dto.FridgeProductDTO;
+import com.eatiko.logic.excepsion.EKFridgeNotFoundException;
 import com.eatiko.logic.facade.FridgeFacade;
 import com.eatiko.logic.model.ACLUser;
 import com.eatiko.logic.model.Fridge;
-import com.eatiko.logic.model.FridgeProduct;
-import com.eatiko.logic.model.Product;
-import com.eatiko.logic.repository.FridgeProductRepository;
 import com.eatiko.logic.repository.FridgeRepository;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class FridgeService {
+    private static final Class<FridgeService> CLAZZ = FridgeService.class;
+    private static final Logger logger = Logger.getLogger(CLAZZ);
+
     private final FridgeRepository fridgeRepository;
     private final FridgeFacade fridgeFacade;
     private final ProductService productService;
@@ -52,7 +52,7 @@ public class FridgeService {
             ACLUser user = aclUserService.getCurrentUser(principal);
             List<Fridge> fridges = fridgeRepository.findAllByAclUser(user);
             if (CollectionUtils.isEmpty(fridges)) {
-                throw new Exception("Not Found fridges for user");
+                throw new EKFridgeNotFoundException("Not Found fridges for user");
             }
             return fridges;
         } catch (Exception e) {
@@ -60,8 +60,17 @@ public class FridgeService {
         }
     }
 
-    public Fridge findFridgeByFridgeIdIs (Long fridgeId) {
-        return fridgeRepository.findFridgeByFridgeIdIs(fridgeId);
+    public Fridge findFridgeByFridgeIdIs(Long fridgeId) throws Exception {
+        try {
+            Fridge fridge = fridgeRepository.findFridgeByFridgeIdIs(fridgeId);
+            if (ObjectUtils.isEmpty(fridge)) {
+                throw new EKFridgeNotFoundException("Fridge not found! Fridge ID =" + fridgeId);
+            }
+            return fridge;
+        } catch (Exception e) {
+            logger.error("findFridgeByFridgeIdIs: " + e.getMessage());
+            throw e;
+        }
     }
 }
 

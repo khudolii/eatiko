@@ -1,24 +1,21 @@
 package com.eatiko.logic.services;
 
-import com.eatiko.logic.dto.FridgeDTO;
-import com.eatiko.logic.dto.FridgeProductDTO;
 import com.eatiko.logic.dto.RecipeDTO;
 import com.eatiko.logic.facade.FridgeFacade;
 import com.eatiko.logic.facade.RecipeFacade;
-import com.eatiko.logic.model.Fridge;
-import com.eatiko.logic.model.FridgeProduct;
-import com.eatiko.logic.model.Recipe;
-import com.eatiko.logic.repository.IngredientRepository;
+import com.eatiko.logic.model.*;
 import com.eatiko.logic.repository.RecipeRepository;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.BindingResult;
 
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class RecipeService {
+    private static final Class<RecipeService> CLAZZ = RecipeService.class;
+    private static final Logger logger = Logger.getLogger(CLAZZ);
 
     private final RecipeRepository recipeRepository;
     private final IngredientService ingredientService;
@@ -50,12 +47,23 @@ public class RecipeService {
     }
 
 
-    public List<Recipe> getRecipesByFridgeProducts (FridgeDTO fridgeDTO, BindingResult bindingResult) {
-        Fridge fridge = fridgeFacade.getEntity(fridgeDTO);
-        List<FridgeProduct> fridgeProducts = fridgeProductService.findFridgeProductByFridge(fridge);
-        Set<Long>
-        for (FridgeProduct fridgeProduct : fridgeProducts) {
-            //fridgeProduct.getProduct().get
-        }
-    }
+  /*  public Set<Recipe> getRecipesByFridgeProducts (Long fridgeId) {
+        Fridge fridge = fridgeService.findFridgeByFridgeIdIs(fridgeId);
+        List<FridgeProduct> fridgeProducts = fridge.getFridgeProducts();
+        List<Product> products = fridgeProducts.stream().map(FridgeProduct::getProduct).collect(Collectors.toList());
+        List<Ingredient> ingredientsByProducts = ingredientService.getIngredientListByProductsList(products);
+        Set<Recipe> recipes = ingredientsByProducts.stream().map(Ingredient::getRecipe).collect(Collectors.toSet());
+        Map<Long, Set<Product>> productsInRecipeMap = new HashMap<>();
+        ingredientsByProducts.forEach(_ingredient -> {
+            Long recipeId = _ingredient.getRecipe().getRecipeId();
+            Set<Product> _products = new HashSet<>();
+            _products.add(_ingredient.getProduct());
+            if (!productsInRecipeMap.containsKey(recipeId)) {
+                productsInRecipeMap.put(recipeId, _products);
+            } else {
+                productsInRecipeMap.get(recipeId).addAll(_products);
+            }
+        });
+        return recipes;
+    }*/
 }

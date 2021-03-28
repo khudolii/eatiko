@@ -1,21 +1,23 @@
 package com.eatiko.logic.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Entity
 public class Fridge {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long fridgeId;
 
-    @OneToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private ACLUser aclUser;
 
@@ -26,7 +28,7 @@ public class Fridge {
     @Column(name = "create_date", updatable = false)
     private LocalDateTime createDate;
 
-    @OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "fridge")
+    @OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "fridge")
     private List<FridgeProduct> fridgeProducts = new ArrayList<>();
 
     @PrePersist
