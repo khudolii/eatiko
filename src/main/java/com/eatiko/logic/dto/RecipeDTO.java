@@ -30,6 +30,7 @@ import java.util.Set;
 @Data
 @Component
 public class RecipeDTO {
+    private Long recipeId;
     @JsonProperty ("label")
     private String name;
     @JsonProperty ("image")
@@ -48,5 +49,7 @@ public class RecipeDTO {
     private List<String> cuisineType;
     @JsonProperty ("ingredients")
     private Set<IngredientDTO> ingredients;
+
+    private List<ProductDTO> productsInFridge;
 
 }

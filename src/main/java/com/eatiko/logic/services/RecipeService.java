@@ -8,6 +8,8 @@ import com.eatiko.logic.repository.RecipeRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.ObjectUtils;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -22,7 +24,6 @@ public class RecipeService {
     private final RecipeFacade recipeFacade;
     private final FridgeService fridgeService;
     private final FridgeProductService fridgeProductService;
-    private final FridgeFacade fridgeFacade;
 
     @Autowired
     public RecipeService(RecipeRepository recipeRepository, IngredientService ingredientService,
@@ -33,12 +34,10 @@ public class RecipeService {
         this.recipeFacade = recipeFacade;
         this.fridgeService = fridgeService;
         this.fridgeProductService = fridgeProductService;
-        this.fridgeFacade = fridgeFacade;
     }
 
     public Recipe createRecipe(RecipeDTO recipeDTO) {
         Recipe recipe = recipeFacade.getEntity(recipeDTO);
-        System.out.println(recipe.toString());
         return createRecipe(recipe);
     }
 
@@ -46,6 +45,25 @@ public class RecipeService {
         return recipeRepository.save(recipe);
     }
 
+    public Set<Recipe> getRecipeListByProducts(List<Product> products) throws Exception {
+        List<Ingredient> ingredientsByProducts = ingredientService.getIngredientListByProductsList(products);
+        return ingredientsByProducts.stream().map(Ingredient::getRecipe).collect(Collectors.toSet());
+    }
+
+    public Map<Long, List<Product>> getProductsInFridgeSetByRecipeIdMap(List<Recipe> recipes, List<Product> products){
+        Map<Long, List<Product>> result = new HashMap<>();
+        recipes.forEach(_recipe -> {
+            Long recipeId = _recipe.getRecipeId();
+            List<Product> recipeProducts = _recipe.getIngredients().stream()
+                    .map(Ingredient::getProduct)
+                    .filter(products::contains)
+                    .collect(Collectors.toList());
+            if (!ObjectUtils.isEmpty(recipeId) && !CollectionUtils.isEmpty(recipeProducts)) {
+                result.put(recipeId, recipeProducts);
+            }
+        });
+        return result;
+    }
 
   /*  public Set<Recipe> getRecipesByFridgeProducts (Long fridgeId) {
         Fridge fridge = fridgeService.findFridgeByFridgeIdIs(fridgeId);

@@ -7,5 +7,5 @@ import org.springframework.stereotype.Component;
 @Component
 public class ProductDTO {
     private Long productId;
-    private Long name;
+    private String name;
 }

@@ -38,10 +38,10 @@ public class Recipe {
     @Column
     private Double totalTime;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     private CuisineType cuisineType;
 
-    @OneToMany (fetch = FetchType.EAGER, mappedBy = "recipe")
+    @OneToMany (fetch = FetchType.LAZY, mappedBy = "recipe")
     private List<Ingredient> ingredients;
 
     @JsonFormat(pattern = "yyyy-mm-dd HH:mm:ss")

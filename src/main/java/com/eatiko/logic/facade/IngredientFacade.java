@@ -5,7 +5,10 @@ import com.eatiko.logic.model.Ingredient;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Component
 public class IngredientFacade implements EntityConvertor<Ingredient, IngredientDTO> {
@@ -30,11 +33,23 @@ public class IngredientFacade implements EntityConvertor<Ingredient, IngredientD
 
     @Override
     public List<Ingredient> getEntitiesList(List<IngredientDTO> dtosList) {
-        return null;
-    }
+        if (dtosList == null || dtosList.isEmpty()) {
+            return new ArrayList<>();
+        }
+        return dtosList
+                .stream()
+                .map(this::getEntity)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());    }
 
     @Override
     public List<IngredientDTO> getDTOsList(List<Ingredient> entitiesList) {
-        return null;
-    }
+        if (entitiesList == null || entitiesList.isEmpty()) {
+            return new ArrayList<>();
+        }
+        return entitiesList
+                .stream()
+                .map(this::getDTO)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());    }
 }

@@ -1,9 +1,7 @@
 package com.eatiko.logic.facade;
 
-import com.eatiko.logic.dto.FridgeProductDTO;
-import com.eatiko.logic.dto.RecipeDTO;
-import com.eatiko.logic.model.ACLUser;
-import com.eatiko.logic.model.FridgeProduct;
+import com.eatiko.logic.dto.ProductDTO;
+import com.eatiko.logic.model.Product;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
@@ -13,27 +11,26 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component
-public class FridgeProductFacade implements EntityConvertor<FridgeProduct, FridgeProductDTO> {
+public class ProductFacade implements EntityConvertor <Product, ProductDTO> {
     @Override
-    public FridgeProduct getEntity(FridgeProductDTO fridgeProductDTO) {
-        if (fridgeProductDTO == null) {
+    public Product getEntity(ProductDTO productDTO) {
+        if (productDTO == null) {
             return null;
         }
         ModelMapper modelMapper = new ModelMapper();
-        return modelMapper.map(fridgeProductDTO, FridgeProduct.class);
+        return modelMapper.map(productDTO, Product.class);
     }
 
     @Override
-    public FridgeProductDTO getDTO(FridgeProduct fridgeProduct) {
-        if (fridgeProduct == null) {
+    public ProductDTO getDTO(Product product) {
+        if (product == null) {
             return null;
         }
         ModelMapper modelMapper = new ModelMapper();
-        return modelMapper.map(fridgeProduct, FridgeProductDTO.class);
-    }
+        return modelMapper.map(product, ProductDTO.class);    }
 
     @Override
-    public List<FridgeProduct> getEntitiesList(List<FridgeProductDTO> dtosList) {
+    public List<Product> getEntitiesList(List<ProductDTO> dtosList) {
         if (dtosList == null || dtosList.isEmpty()) {
             return new ArrayList<>();
         }
@@ -44,7 +41,7 @@ public class FridgeProductFacade implements EntityConvertor<FridgeProduct, Fridg
                 .collect(Collectors.toList());    }
 
     @Override
-    public List<FridgeProductDTO> getDTOsList(List<FridgeProduct> entitiesList) {
+    public List<ProductDTO> getDTOsList(List<Product> entitiesList) {
         if (entitiesList == null || entitiesList.isEmpty()) {
             return new ArrayList<>();
         }

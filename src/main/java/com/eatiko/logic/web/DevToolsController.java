@@ -18,10 +18,10 @@ public class DevToolsController {
         this.recipeService = recipeService;
     }
 
-    @GetMapping("/{fridgeId}/getRecipesByFridge")
+  /*  @GetMapping("/{fridgeId}/getRecipesByFridge")
     public void getRecipesByFridge(@PathVariable String fridgeId) {
         if (!ObjectUtils.isEmpty(fridgeId)) {
             recipeService.getRecipesByFridgeProducts(Long.valueOf(fridgeId));
         }
-    }
+    }*/
 }

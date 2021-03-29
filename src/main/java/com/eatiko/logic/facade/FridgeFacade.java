@@ -32,8 +32,14 @@ public class FridgeFacade implements EntityConvertor<Fridge, FridgeDTO> {
 
     @Override
     public List<Fridge> getEntitiesList(List<FridgeDTO> dtosList) {
-        return null;
-    }
+        if (dtosList == null || dtosList.isEmpty()) {
+            return new ArrayList<>();
+        }
+        return dtosList
+                .stream()
+                .map(this::getEntity)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());    }
 
     @Override
     public List<FridgeDTO> getDTOsList(List<Fridge> entitiesList) {

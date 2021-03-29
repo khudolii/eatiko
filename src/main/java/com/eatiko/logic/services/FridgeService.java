@@ -48,16 +48,12 @@ public class FridgeService {
     }
 
     public List<Fridge> getFridgesForUser(Principal principal) throws Exception {
-        try {
-            ACLUser user = aclUserService.getCurrentUser(principal);
-            List<Fridge> fridges = fridgeRepository.findAllByAclUser(user);
-            if (CollectionUtils.isEmpty(fridges)) {
-                throw new EKFridgeNotFoundException("Not Found fridges for user");
-            }
-            return fridges;
-        } catch (Exception e) {
-            throw e;
+        ACLUser user = aclUserService.getCurrentUser(principal);
+        List<Fridge> fridges = fridgeRepository.findAllByAclUser(user);
+        if (CollectionUtils.isEmpty(fridges)) {
+            throw new EKFridgeNotFoundException("Not Found fridges for user");
         }
+        return fridges;
     }
 
     public Fridge findFridgeByFridgeIdIs(Long fridgeId) throws Exception {

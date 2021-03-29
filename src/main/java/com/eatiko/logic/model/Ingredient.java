@@ -26,12 +26,10 @@ import java.time.LocalDateTime;
     @Column
     private String imageURL;
 
-    @ToString.Exclude
-    @ManyToOne (cascade = CascadeType.ALL)
+    @ManyToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Recipe recipe;
 
-    @ToString.Exclude
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id")
     private Product product;
 

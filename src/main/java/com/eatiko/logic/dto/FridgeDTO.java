@@ -19,5 +19,6 @@ public class FridgeDTO {
     private String fridgeName;
     private Set<Long> productIds = new HashSet<>();
     private List<FridgeProduct> fridgeProducts = new ArrayList<>();
+    private List<RecipeDTO> recipeDTOList;
 
 }
