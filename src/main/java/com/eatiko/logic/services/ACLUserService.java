@@ -37,7 +37,7 @@ public class ACLUserService {
         try {
             ACLUser user = aclUserFacade.getEntity(aclUserDTO);
             if (user == null) {
-                throw new Exception("User entity is null! UserName: " + aclUserDTO.getUserName());
+                throw new Exception("User entity is null! UserName: " + aclUserDTO.getUsername());
             }
             String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
             user.setPassword(encodedPassword);

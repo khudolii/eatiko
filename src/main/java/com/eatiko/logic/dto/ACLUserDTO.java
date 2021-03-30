@@ -21,11 +21,11 @@ public class ACLUserDTO {
     @NotBlank(message = "User email field is required")
     private String email;
     @NotEmpty(message = "Please, enter first name")
-    private String firstName;
+    private String firstname;
     @NotEmpty (message = "Please, enter last name")
-    private String lastName;
+    private String lastname;
     @NotEmpty (message = "Please, enter user name")
-    private String userName;
+    private String username;
     @NotEmpty (message = "Please, enter password")
     @Size(min = 6, message = "Password must 6 symbols")
     private String password;

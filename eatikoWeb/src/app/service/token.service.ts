@@ -27,7 +27,7 @@ export class TokenService {
     return JSON.parse(<string>sessionStorage.getItem(USER_KEY));
   }
 
-  logOut():void{
+  logout():void{
     window.sessionStorage.clear();
     window.location.reload();
   }

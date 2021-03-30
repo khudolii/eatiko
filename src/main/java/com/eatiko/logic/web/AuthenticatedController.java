@@ -4,6 +4,7 @@ import com.eatiko.logic.dto.ACLUserDTO;
 import com.eatiko.logic.excepsion.EKCreateUserException;
 import com.eatiko.logic.payload.request.LoginRequest;
 import com.eatiko.logic.payload.response.JWTTokenSuccessResponse;
+import com.eatiko.logic.payload.response.ResponseMessage;
 import com.eatiko.logic.security.JWTTokenProvider;
 import com.eatiko.logic.services.ACLUserService;
 import com.eatiko.logic.utils.AppConstants;
@@ -49,7 +50,7 @@ public class AuthenticatedController {
         }
         try {
             aclUserService.addUser(aclUserDTO);
-            return ResponseEntity.ok("User registered successfully");
+            return ResponseEntity.ok(new ResponseMessage("User registered successfully"));
         } catch (EKCreateUserException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
