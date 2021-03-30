@@ -1,6 +1,5 @@
 package com.eatiko.logic.dto;
 
-import com.eatiko.logic.model.Ingredient;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;

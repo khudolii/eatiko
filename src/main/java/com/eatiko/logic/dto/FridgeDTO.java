@@ -1,6 +1,7 @@
 package com.eatiko.logic.dto;
 
 import com.eatiko.logic.model.FridgeProduct;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +13,7 @@ import java.util.Set;
 
 @Data
 @Component
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class FridgeDTO {
 
     private String fridgeId;

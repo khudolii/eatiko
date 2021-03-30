@@ -3,6 +3,7 @@ package com.eatiko.logic.dto;
 import com.eatiko.logic.annotations.PasswordMatches;
 import com.eatiko.logic.utils.AppConstants;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.Getter;
 
@@ -13,7 +14,9 @@ import javax.validation.constraints.Size;
 
 @Data
 @PasswordMatches
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ACLUserDTO {
+    private Long userId;
     @Email(regexp = AppConstants.EMAIL_PATTERN, message = "Please, enter correct email format")
     @NotBlank(message = "User email field is required")
     private String email;

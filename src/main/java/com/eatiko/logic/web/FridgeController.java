@@ -102,20 +102,11 @@ public class FridgeController {
     public ResponseEntity<FridgeDTO> getRecipesByFridgeProducts(@PathVariable("fridgeId") String fridgeId) {
         try {
             Long _fId = Long.valueOf(fridgeId);
-            long start = System.currentTimeMillis();
             List<FridgeProduct> productsInFridge = fridgeProductService.findFridgeProductByFridgeId(_fId);
-            System.out.println("productsInFridge: " + (System.currentTimeMillis() - start));
-            start = System.currentTimeMillis();
             List<Product> products = productsInFridge.stream().map(FridgeProduct::getProduct).collect(Collectors.toList());
-            System.out.println("products: " + (System.currentTimeMillis() - start));
-            start = System.currentTimeMillis();
             Set<Recipe> recipesByProducts = recipeService.getRecipeListByProducts(products);
-            System.out.println("recipesByProducts: " + (System.currentTimeMillis() - start));
-            start = System.currentTimeMillis();
             List<Recipe> recipes = new ArrayList<>(recipesByProducts);
             Map<Long, List<Product>> productsInFridgeByRecipeMap = recipeService.getProductsInFridgeSetByRecipeIdMap(recipes, products);
-            System.out.println("productsInFridgeByRecipeMap: " + (System.currentTimeMillis() - start));
-            start = System.currentTimeMillis();
             List<RecipeDTO> recipeDTOList = new ArrayList<>();
             recipes
                     .stream()
@@ -130,8 +121,6 @@ public class FridgeController {
                         recipeDTO.setProductsInFridge(productDTOS);
                         recipeDTOList.add(recipeDTO);
                     });
-            System.out.println("recipeDTOList: " + (System.currentTimeMillis() - start));
-            start = System.currentTimeMillis();
             FridgeDTO fridgeDTO = new FridgeDTO();
             fridgeDTO.setFridgeId(fridgeId);
             fridgeDTO.setRecipeDTOList(recipeDTOList);

@@ -54,10 +54,13 @@ public class RecipeService {
         Map<Long, List<Product>> result = new HashMap<>();
         recipes.forEach(_recipe -> {
             Long recipeId = _recipe.getRecipeId();
-            List<Product> recipeProducts = _recipe.getIngredients().stream()
+            List<Product> recipeProducts = new ArrayList<>();
+            _recipe
+                    .getIngredients()
+                    .stream()
                     .map(Ingredient::getProduct)
-                    .filter(products::contains)
-                    .collect(Collectors.toList());
+                    .filter(product -> products.contains(product) && !recipeProducts.contains(product))
+                    .forEachOrdered(recipeProducts::add);
             if (!ObjectUtils.isEmpty(recipeId) && !CollectionUtils.isEmpty(recipeProducts)) {
                 result.put(recipeId, recipeProducts);
             }
