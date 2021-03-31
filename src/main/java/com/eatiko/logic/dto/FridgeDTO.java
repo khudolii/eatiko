@@ -20,7 +20,7 @@ public class FridgeDTO {
     @NotEmpty(message = "Please, enter fridge name")
     private String fridgeName;
     private Set<Long> productIds = new HashSet<>();
-    private List<FridgeProduct> fridgeProducts = new ArrayList<>();
+    private List<FridgeProductDTO> fridgeProducts = new ArrayList<>();
     private List<RecipeDTO> recipeDTOList;
 
 }

@@ -69,8 +69,10 @@ public class FridgeController {
     @GetMapping("/getFridges")
     public ResponseEntity<List<FridgeDTO>> findAllFridgeByAclUser(Principal principal) {
         try {
+            System.out.println("REQUEST !!!!");
             List<Fridge> fridges = fridgeService.getFridgesForUser(principal);
             List<FridgeDTO> fridgeDTOS = fridgeFacade.getDTOsList(fridges);
+            fridgeDTOS.stream().map(FridgeDTO::toString).forEach(System.out::println);
             return new ResponseEntity<>(fridgeDTOS, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();

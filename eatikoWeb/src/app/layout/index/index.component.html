@@ -1,0 +1,11 @@
+<div *ngIf="isLoggedIn" class="index-page">
+  <mat-card class="post-card" *ngFor="let fridge of fridges; let i = index">
+    <mat-card-header style="text-align: left">
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>{{fridge.fridgeName}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content *ngFor="let product of fridge.fridgeProducts">
+      <p>{{product.productId}}</p>
+    </mat-card-content>
+  </mat-card>
+</div>

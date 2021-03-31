@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 public class FridgeProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long fridgeProductId;
 
     @ManyToOne (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn (name = "fridge_id")

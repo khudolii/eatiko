@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 
-const USER_API = "http://localhost:8081/user";
+const USER_API = "http://localhost:8081/user/";
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +20,6 @@ export class UserService {
   }
 
   updateUser(user:any):Observable<any>{
-    return this.http.post(USER_API + '/update', user);
+    return this.http.post(USER_API + 'update', user);
   }
 }
