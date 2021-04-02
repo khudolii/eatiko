@@ -69,7 +69,6 @@ public class FridgeController {
     @GetMapping("/getFridges")
     public ResponseEntity<List<FridgeDTO>> findAllFridgeByAclUser(Principal principal) {
         try {
-            System.out.println("REQUEST !!!!");
             List<Fridge> fridges = fridgeService.getFridgesForUser(principal);
             List<FridgeDTO> fridgeDTOS = fridgeFacade.getDTOsList(fridges);
             fridgeDTOS.stream().map(FridgeDTO::toString).forEach(System.out::println);
@@ -124,7 +123,7 @@ public class FridgeController {
                         recipeDTOList.add(recipeDTO);
                     });
             FridgeDTO fridgeDTO = new FridgeDTO();
-            fridgeDTO.setFridgeId(fridgeId);
+            fridgeDTO.setFridgeId(Long.valueOf(fridgeId));
             fridgeDTO.setRecipeDTOList(recipeDTOList);
             return new ResponseEntity<>(fridgeDTO, HttpStatus.OK);
         } catch (Exception e) {

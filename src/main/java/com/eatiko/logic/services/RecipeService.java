@@ -68,23 +68,7 @@ public class RecipeService {
         return result;
     }
 
-  /*  public Set<Recipe> getRecipesByFridgeProducts (Long fridgeId) {
-        Fridge fridge = fridgeService.findFridgeByFridgeIdIs(fridgeId);
-        List<FridgeProduct> fridgeProducts = fridge.getFridgeProducts();
-        List<Product> products = fridgeProducts.stream().map(FridgeProduct::getProduct).collect(Collectors.toList());
-        List<Ingredient> ingredientsByProducts = ingredientService.getIngredientListByProductsList(products);
-        Set<Recipe> recipes = ingredientsByProducts.stream().map(Ingredient::getRecipe).collect(Collectors.toSet());
-        Map<Long, Set<Product>> productsInRecipeMap = new HashMap<>();
-        ingredientsByProducts.forEach(_ingredient -> {
-            Long recipeId = _ingredient.getRecipe().getRecipeId();
-            Set<Product> _products = new HashSet<>();
-            _products.add(_ingredient.getProduct());
-            if (!productsInRecipeMap.containsKey(recipeId)) {
-                productsInRecipeMap.put(recipeId, _products);
-            } else {
-                productsInRecipeMap.get(recipeId).addAll(_products);
-            }
-        });
-        return recipes;
-    }*/
+    public List<Recipe> findAllRecipes(){
+        return null; //TODO
+    }
 }

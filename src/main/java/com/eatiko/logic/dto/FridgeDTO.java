@@ -16,11 +16,12 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class FridgeDTO {
 
-    private String fridgeId;
+    private Long fridgeId;
     @NotEmpty(message = "Please, enter fridge name")
     private String fridgeName;
     private Set<Long> productIds = new HashSet<>();
     private List<FridgeProductDTO> fridgeProducts = new ArrayList<>();
-    private List<RecipeDTO> recipeDTOList;
+    private List<RecipeDTO> recipeDTOList  = new ArrayList<>();
+    private ACLUserDTO aclUserDTO;
 
 }
