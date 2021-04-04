@@ -2,10 +2,10 @@ import {Ingredient} from "./Ingredient";
 
 export interface Recipe{
   recipeId:number;
-  recipeName:number;
-  imageUrl?:string;
+  label:string;
+  image?:string;
   source?:string;
-  sourceUrl?:string;
+  url?:string;
   calories?:number;
   totalWeight?:number;
   ingredients?:Ingredient[];

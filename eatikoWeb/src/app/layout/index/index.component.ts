@@ -13,7 +13,8 @@ import {FridgeService} from "../../service/fridge.service";
 })
 export class IndexComponent implements OnInit {
   isLoggedIn: boolean = false;
-  recipe!:Recipe[];
+  isDataLoaded: boolean = false;
+  recipes!:Recipe[];
   fridges!:Fridge[];
 
   constructor(private tokenService: TokenService,
@@ -29,6 +30,12 @@ export class IndexComponent implements OnInit {
         this.fridges = data;
       });
     }
+      this.recipeService.getRecipesForMainPage()
+        .subscribe(data => {
+          console.log(data);
+          this.recipes = data;
+          this.isDataLoaded = true;
+        });
   }
 
 }

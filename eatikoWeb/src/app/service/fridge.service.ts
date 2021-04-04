@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Fridge} from "../models/Fridge";
 import {Observable} from "rxjs";
-import {AppModule} from "../app.module";
 import {FridgeProduct} from "../models/FridgeProduct";
 
 const FRIDGE_API = "http://localhost:8081/fridge";

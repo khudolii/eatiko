@@ -9,8 +9,8 @@ import java.util.List;
 
 @Repository
 public interface RecipeRepository extends JpaRepository<Recipe, Long> {
-   List<Recipe> findAllRecipes();
-   List<Recipe> findAllRecipes(Pageable page);
+   //List<Recipe> findAllRecipes();
+   List<Recipe> findByOrderByRecipeId(Pageable page);
 
 
 }

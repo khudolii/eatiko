@@ -1,0 +1,41 @@
+.index-page {
+  display: block;
+  margin: 0 auto;
+  width: 60%;
+  padding-top: 3rem;
+}
+
+.post-card {
+  margin: 2rem auto;
+  width: 20%;
+}
+
+.is-liked {
+  color: darkred;
+}
+
+.not-liked {
+  color: grey;
+}
+.recipe-img{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 220px;
+  width: 220px;
+}
+
+.card-recipe{
+  width: 350px;
+  margin: 4px;
+}
+.recipe-btn{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+/*mat-card-title{
+  text-overflow:ellipsis;
+  white-space: nowrap; !* Запрещаем перенос строк *!
+  overflow: hidden;
+}*/

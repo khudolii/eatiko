@@ -7,6 +7,7 @@ import com.eatiko.logic.model.*;
 import com.eatiko.logic.repository.RecipeRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
@@ -68,7 +69,11 @@ public class RecipeService {
         return result;
     }
 
-    public List<Recipe> findAllRecipes(){
-        return null; //TODO
+    public List<Recipe> findLimitRecipes(Pageable page){
+        if (ObjectUtils.isEmpty(page)) {
+            return new ArrayList<>();
+        }
+        return recipeRepository.findByOrderByRecipeId(page);
     }
+
 }
