@@ -19,7 +19,7 @@ export class IndexComponent implements OnInit {
 
   constructor(private tokenService: TokenService,
               private recipeService:RecipeService,
-              private fridgeService: FridgeService) { }
+              public fridgeService: FridgeService) { }
 
   ngOnInit(): void {
     this.isLoggedIn = !!this.tokenService.getToken();
@@ -29,13 +29,15 @@ export class IndexComponent implements OnInit {
         console.log(data);
         this.fridges = data;
       });
-    }
       this.recipeService.getRecipesForMainPage()
         .subscribe(data => {
           console.log(data);
           this.recipes = data;
           this.isDataLoaded = true;
         });
+    }
+
   }
+
 
 }

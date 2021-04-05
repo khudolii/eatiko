@@ -76,4 +76,8 @@ public class RecipeService {
         return recipeRepository.findByOrderByRecipeId(page);
     }
 
+    public Long countAllRecipes(){
+        return recipeRepository.countAllBy();
+    }
+
 }

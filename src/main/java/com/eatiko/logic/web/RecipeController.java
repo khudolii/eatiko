@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +40,13 @@ public class RecipeController {
     private ResponseEntity<List<RecipeDTO>> getRecipeForMainPage() {
         ResponseEntity<List<RecipeDTO>> result;
         try {
-            int num = (int) (Math.random()*20);
+            Long numOfRecipes = recipeService.countAllRecipes();
+            if (ObjectUtils.isEmpty(numOfRecipes) || numOfRecipes.equals(0L)){
+                numOfRecipes = 1L;
+            } else {
+                numOfRecipes/=10;
+            }
+            int num = (int) (Math.random()*numOfRecipes);
             Pageable page = PageRequest.of(num, AppConstants.NUM_OF_RECIPES_ON_INDEX_PAGE);
             List<Recipe> recipes = recipeService.findLimitRecipes(page);
             List<RecipeDTO> recipeDTOList = recipeFacade.getDTOsList(recipes);

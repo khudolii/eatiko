@@ -69,9 +69,12 @@ public class FridgeController {
     @GetMapping("/getFridges")
     public ResponseEntity<List<FridgeDTO>> findAllFridgeByAclUser(Principal principal) {
         try {
+            long start = System.currentTimeMillis();
             List<Fridge> fridges = fridgeService.getFridgesForUser(principal);
+            System.out.println(System.currentTimeMillis()-start);
+            start = System.currentTimeMillis();
             List<FridgeDTO> fridgeDTOS = fridgeFacade.getDTOsList(fridges);
-            fridgeDTOS.stream().map(FridgeDTO::toString).forEach(System.out::println);
+            System.out.println(System.currentTimeMillis()-start);
             return new ResponseEntity<>(fridgeDTOS, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
@@ -127,6 +130,19 @@ public class FridgeController {
             fridgeDTO.setRecipeDTOList(recipeDTOList);
             return new ResponseEntity<>(fridgeDTO, HttpStatus.OK);
         } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/{fridgeId}/getFridgeById")
+    public ResponseEntity<FridgeDTO> getFridgeById(@PathVariable("fridgeId") String fridgeId) {
+        try {
+            Long _fid = Long.parseLong(fridgeId);
+            Fridge fridge = fridgeService.findFridgeByFridgeIdIs(_fid);
+            FridgeDTO fridgeDTO = fridgeFacade.getDTO(fridge);
+            return new ResponseEntity<>(fridgeDTO, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }

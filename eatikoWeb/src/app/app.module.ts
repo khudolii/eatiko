@@ -13,13 +13,16 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { NavigationComponent } from './layout/navigation/navigation.component';
 import { IndexComponent } from "./layout/index/index.component";
+import { FridgeComponent } from './layout/fridge/fridge.component';
+import {MatRippleModule} from "@angular/material/core";
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
     NavigationComponent,
-    IndexComponent
+    IndexComponent,
+    FridgeComponent
   ],
   imports: [
     BrowserModule,
@@ -28,9 +31,10 @@ import { IndexComponent } from "./layout/index/index.component";
     ReactiveFormsModule,
     MaterialModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    MatRippleModule
   ],
-  providers: [authInterceptorProviders/*, authErrorInterceptorProvider*/],
+  providers: [authInterceptorProviders, /*authErrorInterceptorProvider*/],
   bootstrap: [AppComponent]
 })
 export class AppModule {

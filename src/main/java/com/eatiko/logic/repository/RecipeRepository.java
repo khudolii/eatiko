@@ -11,6 +11,7 @@ import java.util.List;
 public interface RecipeRepository extends JpaRepository<Recipe, Long> {
    //List<Recipe> findAllRecipes();
    List<Recipe> findByOrderByRecipeId(Pageable page);
+   Long countAllBy();
 
 
 }

@@ -13,6 +13,7 @@ import {MatGridListModule} from "@angular/material/grid-list";
 import {MatListModule} from "@angular/material/list";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {MatTabsModule} from "@angular/material/tabs";
 
 @NgModule({
   exports:[
@@ -29,7 +30,8 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
     MatListModule,
     MatGridListModule,
     MatProgressSpinnerModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatTabsModule
   ]
 })
 

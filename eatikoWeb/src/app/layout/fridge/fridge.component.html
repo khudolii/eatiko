@@ -1,0 +1,29 @@
+<div *ngIf="isLoggedIn">
+  <mat-tab-group dynamicHeight>
+    <mat-tab label="Fridge Info">
+      <mat-card-title>{{fridge.fridgeName}}</mat-card-title>
+    <mat-selection-list [multiple]="false">
+      <mat-list-option *ngFor="let fridgeProduct of fridge.fridgeProducts">
+        {{fridgeProduct.fridgeProductId}}
+      </mat-list-option>
+    </mat-selection-list>
+    </mat-tab>
+    <mat-tab label="Fridge Product Management">
+      <mat-card-title>{{fridge.fridgeName}}</mat-card-title>
+    <mat-selection-list [multiple]="false">
+      <mat-list-option *ngFor="let fridgeProduct of fridge.fridgeProducts">
+        {{fridgeProduct.fridgeProductId}}
+      </mat-list-option>
+    </mat-selection-list>
+    </mat-tab>
+    <mat-tab label="Recipes for you">
+      <mat-card-title>{{fridge.fridgeName}}</mat-card-title>
+    <mat-selection-list [multiple]="false">
+      <mat-list-option *ngFor="let fridgeProduct of fridge.fridgeProducts">
+        {{fridgeProduct.fridgeProductId}}
+      </mat-list-option>
+    </mat-selection-list>
+    </mat-tab>
+
+  </mat-tab-group>
+</div>
