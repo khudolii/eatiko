@@ -5,8 +5,10 @@ import com.eatiko.logic.repository.ProductRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
 
 @Service
@@ -33,4 +35,11 @@ public class ProductService {
         return productRepository.findProductByProductIdIs(productId);
     }
 
+    public Product updateProduct(Product product) {
+        if(!ObjectUtils.isEmpty(product)){
+            return productRepository.save(product);
+        } else {
+            return null;
+        }
+    }
 }

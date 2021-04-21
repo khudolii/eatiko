@@ -10,4 +10,5 @@ import org.springframework.stereotype.Component;
 public class ProductDTO {
     private Long productId;
     private String name;
+    private String imgUrl;
 }

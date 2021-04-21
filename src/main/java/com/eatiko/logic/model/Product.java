@@ -33,6 +33,9 @@ public class Product {
     @Column(name = "create_date", updatable = false)
     private LocalDateTime createDate;
 
+    @Column(name = "img_url")
+    private String imgUrl;
+
     @PrePersist
     private void onCreate() {
         this.createDate = LocalDateTime.now();

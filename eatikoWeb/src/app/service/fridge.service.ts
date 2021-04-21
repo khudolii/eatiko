@@ -26,8 +26,8 @@ export class FridgeService {
     return this.http.get(FRIDGE_API + "/" + id + "/getFridgeById");
   }
 
-  addProductToFridge(fridgeId: number, fridgeProduct: FridgeProduct): Observable<any> {
-    return this.http.post(FRIDGE_API + "/" + fridgeId + "/addProduct", fridgeProduct)
+  addProductToFridge(fridgeProduct: FridgeProduct): Observable<any> {
+    return this.http.post(FRIDGE_API + "/" + fridgeProduct.fridgeId + "/addProduct", fridgeProduct)
   }
 
   getRecipesByFridgeProducts(fridgeId: number): Observable<any> {

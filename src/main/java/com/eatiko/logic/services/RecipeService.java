@@ -80,4 +80,6 @@ public class RecipeService {
         return recipeRepository.countAllBy();
     }
 
+    public Set<String> getAllRecipesName(){ return recipeRepository.findRecipesNames();}
+
 }

@@ -11,11 +11,13 @@ import com.eatiko.logic.utils.AppUtil;
 import org.json.JSONObject;
 import org.reflections.Reflections;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
 
 import org.apache.log4j.Logger;
+import org.springframework.util.ObjectUtils;
 
 @Component
 public class RecipeProcessor {
@@ -23,9 +25,9 @@ public class RecipeProcessor {
     private static final Logger logger = Logger.getLogger(CLAZZ);
     private static boolean isRunning = false;
 
-    private RecipeService recipeService;
-    private IngredientService ingredientService;
-    private ProductService productService;
+    private final RecipeService recipeService;
+    private final IngredientService ingredientService;
+    private final ProductService productService;
 
     @Autowired
     public RecipeProcessor(RecipeService recipeService, IngredientService ingredientService, ProductService productService) {
@@ -34,17 +36,21 @@ public class RecipeProcessor {
         this.productService = productService;
     }
 
-    //@Scheduled(fixedDelay = 5000)
+    @Scheduled(fixedDelay = 5000)
     public void startParsingRecipes() {
         if (isRunning) {
             logger.info("RecipeProcessor is running! Next iteration will start later");
+            System.out.println("PROCESSOR IN RUN");
         } else {
+            System.out.println("PROCESSOR START");
             isRunning = true;
             List<BaseAPI<RecipeDTO>> apisList = new ArrayList<>();
             try {
                 List<Product> products = productService.getAllProducts();
-                Set<String> recipesNames = new HashSet<>();
+                Set<String> recipesNames = recipeService.getAllRecipesName();
+                logger.info("Found " + products.size() + " products, and recipes - " + recipesNames.size());
                 if (products == null || products.isEmpty()) {
+                    logger.error("Not found any products");
                     return;
                 }
 
@@ -79,13 +85,34 @@ public class RecipeProcessor {
                     if (jsonObject != null && !jsonObject.isEmpty()) {
                         List<RecipeDTO> recipeDTOList = api.createDTOListByJSON(jsonObject);
                         if (recipeDTOList != null && !recipeDTOList.isEmpty()) {
+
                             recipeDTOList.stream()
                                     .filter(recipeDTO -> recipeDTO.getName() != null
                                             && !recipesNames.contains(recipeDTO.getName()))
-                                    .map(recipeDTO -> recipeService.createRecipe(recipeDTO))
+                                    .map(recipeService::createRecipe)
                                     .forEachOrdered(recipe -> {
+
                                         List<Ingredient> ingredients = recipe.getIngredients();
-                                        ingredients.forEach(_ingredient -> {
+                                                                              ingredients.forEach(_ingredient -> {
+                                            logger.info("Set ingredient - " + _ingredient.getName() + " to recipe - " + recipe.getRecipeName());
+                                            Product ingredientProduct = getProductByIngredient(products, _ingredient);
+                                            if (ObjectUtils.isEmpty(ingredientProduct)) {
+                                                Product notFoundProduct = new Product();
+                                                notFoundProduct.setProductId(0L);
+                                                _ingredient.setProduct(notFoundProduct);
+                                            } else {
+                                                _ingredient.setProduct(ingredientProduct);
+
+                                                if (ObjectUtils.isEmpty(ingredientProduct.getImgUrl())) {
+                                                    String productUrl = _ingredient.getImageURL();
+
+                                                    logger.info("Set img (" + productUrl + ") to product - " + ingredientProduct.getName());
+                                                    if (!ObjectUtils.isEmpty(productUrl)) {
+                                                        ingredientProduct.setImgUrl(productUrl);
+                                                        productService.updateProduct(ingredientProduct);
+                                                    }
+                                                }
+                                            }
                                             _ingredient.setRecipe(recipe);
                                             ingredientService.createIngredient(_ingredient);
                                         });
@@ -120,22 +147,4 @@ public class RecipeProcessor {
         }
         return null;
     }
-
-/*    public static void main(String[] args) {
-        String s = "2 1/2 #$cups #$grappa34 or unflavored vodka";
-        String test = s.replaceAll("[^A-Za-zА-Яа-я]", "").toLowerCase(Locale.ROOT);
-        System.out.println(test);
-        String word = "vodka".toLowerCase(Locale.ROOT);
-        int charCount = 0;
-        List<String>
-        for (int j = 0; j < test.length(); j++) {
-
-                if (test.charAt(j) == word.charAt(charCount)) {
-
-            }
-
-        }
-
-    }*/
-
 }

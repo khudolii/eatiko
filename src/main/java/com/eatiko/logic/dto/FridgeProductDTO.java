@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 public class FridgeProductDTO {
     private Long fridgeProductId;
     private Long productId;
+    private ProductDTO product;
     private Long fridgeId;
     private Double weight;
 }

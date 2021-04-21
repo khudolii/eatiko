@@ -2,6 +2,7 @@ import {ProductType} from "./ProductType";
 
 export interface Product{
   productId:number;
-  productName:string;
-  productType?:ProductType;
+  name:string;
+  imgUrl:string;
+//  productType?:ProductType;
 }
