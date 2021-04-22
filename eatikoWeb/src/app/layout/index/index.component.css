@@ -23,6 +23,8 @@
   margin-right: auto;
   height: 220px;
   width: 220px;
+  background-size: cover;
+
 }
 
 .card-recipe{

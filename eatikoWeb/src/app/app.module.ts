@@ -17,6 +17,7 @@ import {MatRippleModule} from "@angular/material/core";
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatTableModule} from "@angular/material/table";
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import {MatPaginatorModule} from "@angular/material/paginator";
     MatRippleModule,
     DragDropModule,
     FlexLayoutModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatTableModule
   ],
   providers: [authInterceptorProviders, /*authErrorInterceptorProvider*/],
   bootstrap: [AppComponent]

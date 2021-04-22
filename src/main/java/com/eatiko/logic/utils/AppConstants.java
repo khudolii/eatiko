@@ -10,6 +10,6 @@ public class AppConstants {
     public static final String SECURITY_TOKEN_PREFIX = "Brearer ";
     public static final String SECURITY_HEADER_STRING = "Authorization";
     public static final String SECURITY_CONTENT_TYPE = "application/json";
-    public static final long SECURITY_EXPIRATION_TIME = 600_000;
+    public static final long SECURITY_EXPIRATION_TIME = 6000000;
 
 }

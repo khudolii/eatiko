@@ -26,8 +26,8 @@
             <mat-card-title>{{recipe.label}}</mat-card-title>
             <mat-card-subtitle>Calories: {{recipe.calories|number: '1.0-0'}}</mat-card-subtitle>
             <mat-card-subtitle>Source: {{recipe.source}}</mat-card-subtitle>
+            <img class="recipe-img" mat-card-avatar src="{{recipe.image}}" alt="post image">
           </mat-card-header>
-          <img class="recipe-img" mat-card-image src="{{recipe.image}}" alt="post image">
           <mat-card-actions>
             <a mat-button class="recipe-btn" target="_blank" href="{{recipe.url}}">Go to recipe</a>
           </mat-card-actions>

@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {switchMap} from "rxjs/operators";
 import {FridgeService} from "../../service/fridge.service";
@@ -7,6 +7,9 @@ import {TokenService} from "../../service/token.service";
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {Product} from "../../models/Product";
 import {ProductService} from "../../service/product.service";
+import {MatPaginator} from "@angular/material/paginator";
+import {MatTableDataSource} from "@angular/material/table";
+import {Observable} from "rxjs";
 
 export interface DialogData {
   test: string;
@@ -22,7 +25,11 @@ export class FridgeComponent implements OnInit {
   isDataLoaded: boolean = false;
   id!: number;
   fridge!: Fridge;
-  allProducts!:Product[];
+  allProducts!: Product[];
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  dataSource: MatTableDataSource<Product> | any;
+  displayedColumns: string[] = ['name', 'img', 'btn'];
+  obs: Observable<any> | any;
 
   constructor(private route: ActivatedRoute,
               private fridgeService: FridgeService,
@@ -49,34 +56,13 @@ export class FridgeComponent implements OnInit {
       this.productService.getAllProducts().subscribe(data => {
         console.log(data);
         this.allProducts = data;
+        this.dataSource = new MatTableDataSource(this.allProducts);
+        this.isDataLoaded = true;
       });
-      this.isDataLoaded = true;
     }
   }
-
-  /*  openAddFridgeDialog(): void {
-      const dialogRef = this.dialog.open(AddFridgeDialog, {
-        width: '250px',
-        data: {test: this.test}
-      });
-      dialogRef.afterClosed().subscribe(result => {
-        console.log("Dialog close");
-        this.test = result;
-      });
-    }*/
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.obs = this.dataSource.connect();
+  }
 }
-
-/*
-@Component({
-selector: 'add-fridge-dialog',
-templateUrl: 'add-fridge-dialog.html'
-})
-export class AddFridgeDialog {
-constructor(
-  public dialogRef: MatDialogRef<AddFridgeDialog>,
-  @Inject(MAT_DIALOG_DATA) public data: DialogData
-) {}
-onNoClick():void{
-  this.dialogRef.close();
-}
-}*/
