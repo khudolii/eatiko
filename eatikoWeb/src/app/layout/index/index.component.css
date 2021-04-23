@@ -21,8 +21,8 @@
   display: block;
   margin-left: auto;
   margin-right: auto;
-  height: 220px;
-  width: 220px;
+  height: 200px;
+  width: 200px;
   background-size: cover;
 
 }
@@ -32,14 +32,40 @@
   margin: 4px;
 }
 .card-fridge{
-  width: 350px;
-  margin: 4px;
+  display: table;
 }
+.example-label {
+  display: table-cell;
+  font-size: 14px;
+  margin-left: 8px;
+  min-width: 120px;
+}
+
+.example-button-row {
+  display: table-cell;
+  width: 490px;
+}
+
+.example-button-row .mat-button-base {
+  margin: 8px 8px 8px 0;
+}
+
+.example-flex-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.example-button-container {
+  display: flex;
+  justify-content: center;
+  width: 120px;
+}
+
 .recipe-btn{
   display: block;
   margin-left: auto;
   margin-right: auto;
-
 }
 
 .example-ripple-container {
@@ -63,3 +89,12 @@ h1.test2 {
   border-bottom: 1px solid black;
   text-transform: uppercase;
 }
+
+.content {
+  padding: 10px;
+}
+
+.content > mat-card {
+  width: 100px;
+}
+

@@ -53,13 +53,14 @@
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
-.recipe-img{
+.recipe-img {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  height: 50px;
-  width: 50px;
+  height: 80px;
+  width: 80px;
 }
+
 .content {
   padding: 10px;
 }
@@ -71,7 +72,25 @@
 .example-header-image {
   background-size: cover;
 }
-.table-container {
-  max-height: calc(100vh - 155px);
-  overflow: auto;
+
+.split-view-container {
+  display: flex;
+  justify-content: space-evenly;
+  height: 100%;
+}
+
+.side-div{
+  width: 50%;
+}
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+.recipe-btn{
+  margin-left: auto;
+  margin-right: auto;
+  vertical-align: middle;
+}
+table {
+  width: 100%;
 }

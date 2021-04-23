@@ -10,6 +10,7 @@ import {ProductService} from "../../service/product.service";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
 import {Observable} from "rxjs";
+import {FridgeProduct} from "../../models/FridgeProduct";
 
 export interface DialogData {
   test: string;
@@ -27,9 +28,11 @@ export class FridgeComponent implements OnInit {
   fridge!: Fridge;
   allProducts!: Product[];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  dataSource: MatTableDataSource<Product> | any;
-  displayedColumns: string[] = ['name', 'img', 'btn'];
-  obs: Observable<any> | any;
+  allProductsDataSource: MatTableDataSource<Product> | any;
+  fridgeProductsDataSource: MatTableDataSource<FridgeProduct> | any;
+  displayedColumns: string[] = ['name', 'type', 'date', 'action'/*, 'date', 'type', 'action'*/];
+  allProductsData: Observable<any> | any;
+  fridgeProductsData: Observable<any> | any;
 
   constructor(private route: ActivatedRoute,
               private fridgeService: FridgeService,
@@ -51,18 +54,30 @@ export class FridgeComponent implements OnInit {
         .subscribe(data => {
           console.log(data);
           this.fridge = data;
+          this.fridgeProductsDataSource = new MatTableDataSource(this.fridge.fridgeProducts);
         });
 
       this.productService.getAllProducts().subscribe(data => {
         console.log(data);
         this.allProducts = data;
-        this.dataSource = new MatTableDataSource(this.allProducts);
+        this.allProductsDataSource = new MatTableDataSource(this.allProducts);
         this.isDataLoaded = true;
       });
     }
   }
+
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.obs = this.dataSource.connect();
+    this.allProductsDataSource.paginator = this.paginator;
+    this.allProductsData = this.allProductsDataSource.connect();
+    this.fridgeProductsData = this.fridgeProductsDataSource.connect();
+  }
+
+  applyFilterAllProducts(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.allProductsDataSource.filter = filterValue.trim().toLowerCase();
+  }
+  applyFilterFridgeProducts(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.fridgeProductsDataSource.filter = filterValue.trim().toLowerCase();
   }
 }

@@ -12,6 +12,7 @@ import com.eatiko.logic.services.FridgeProductService;
 import com.eatiko.logic.services.FridgeService;
 import com.eatiko.logic.services.RecipeService;
 import com.eatiko.logic.validations.ResponseServiceValidation;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -59,10 +60,10 @@ public class FridgeController {
                 return errors;
             }
             fridgeService.createFridge(fridgeDTO, principal);
-            return new ResponseEntity<>("Fridge created!", HttpStatus.OK);
+            return new ResponseEntity<>(new JSONObject().put("msg", "Fridge created!"), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>("Fridge didn't create!", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new JSONObject().put("msg", "Fridge didn't create!"), HttpStatus.BAD_REQUEST);
         }
     }
 

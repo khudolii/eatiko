@@ -1,11 +1,13 @@
 package com.eatiko.logic.facade;
 
 import com.eatiko.logic.dto.FridgeProductDTO;
+import com.eatiko.logic.dto.ProductDTO;
 import com.eatiko.logic.dto.RecipeDTO;
 import com.eatiko.logic.model.ACLUser;
 import com.eatiko.logic.model.FridgeProduct;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -15,6 +17,13 @@ import java.util.stream.Collectors;
 
 @Component
 public class FridgeProductFacade implements EntityConvertor<FridgeProduct, FridgeProductDTO> {
+    private ProductFacade productFacade;
+
+    @Autowired
+    public FridgeProductFacade(ProductFacade productFacade) {
+        this.productFacade = productFacade;
+    }
+
     @Override
     public FridgeProduct getEntity(FridgeProductDTO fridgeProductDTO) {
         if (fridgeProductDTO == null) {
@@ -32,7 +41,10 @@ public class FridgeProductFacade implements EntityConvertor<FridgeProduct, Fridg
         }
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-        return modelMapper.map(fridgeProduct, FridgeProductDTO.class);
+        FridgeProductDTO fridgeProductDTO = modelMapper.map(fridgeProduct, FridgeProductDTO.class);
+        ProductDTO productDTO = productFacade.getDTO(fridgeProduct.getProduct());
+        fridgeProductDTO.setProduct(productDTO);
+        return fridgeProductDTO;
     }
 
     @Override

@@ -5,7 +5,7 @@ import {FridgeProduct} from "./FridgeProduct";
 export interface Fridge{
   fridgeId?:number;
   aclUser?:User;
-  fridgeName?:string;
+  fridgeName:string;
   fridgeProducts?:FridgeProduct[];
   recipeDTOList?:Recipe[];
 }

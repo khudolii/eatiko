@@ -1,0 +1,12 @@
+<h1 mat-dialog-actions> Hi</h1>
+<div mat-dialog-content>
+  <p>How do you want to name your new fridge?</p>
+  <mat-form-field [formGroup]="form">
+    <mat-label>Fridge name</mat-label>
+    <input formControlName="fridgeName" matInput>
+  </mat-form-field>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">No, thanks</button>
+    <button mat-button (click)="saveFridge()">Save</button>
+  </div>
+</div>

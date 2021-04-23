@@ -24,7 +24,9 @@ public class ProductService {
     }
 
     public List<Product> getAllProducts() {
-        return productRepository.findAllByOrderByProductId();
+        List<Product> products = productRepository.findAllByOrderByProductId();
+        products.removeIf(_p->_p.getProductId().equals(0L));
+        return products;
     }
 
     public List<Product> getProductsByIds (Set<Long> ids) {

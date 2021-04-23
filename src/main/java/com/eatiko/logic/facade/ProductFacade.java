@@ -27,7 +27,10 @@ public class ProductFacade implements EntityConvertor <Product, ProductDTO> {
             return null;
         }
         ModelMapper modelMapper = new ModelMapper();
-        return modelMapper.map(product, ProductDTO.class);    }
+        ProductDTO productDTO =  modelMapper.map(product, ProductDTO.class);
+        productDTO.setType(product.getProductType().getTypeName());
+        return productDTO;
+    }
 
     @Override
     public List<Product> getEntitiesList(List<ProductDTO> dtosList) {

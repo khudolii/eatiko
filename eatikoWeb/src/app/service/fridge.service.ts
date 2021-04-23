@@ -14,8 +14,8 @@ export class FridgeService {
   constructor(private http: HttpClient) {
   }
 
-  createFridge(fridge: Fridge): Observable<any> {
-    return this.http.post(FRIDGE_API + "/addFridge", fridge);
+  createFridge(name: string): Observable<any> {
+    return this.http.post(FRIDGE_API + "/addFridge", {fridgeName: name});
   }
 
   getAllFridges(): Observable<any> {

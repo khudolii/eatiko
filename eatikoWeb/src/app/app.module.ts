@@ -11,13 +11,14 @@ import {authInterceptorProviders} from "./helper/auth-interceptor.service";
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { NavigationComponent } from './layout/navigation/navigation.component';
-import { IndexComponent } from "./layout/index/index.component";
+import {AddFridgeDialog, IndexComponent} from "./layout/index/index.component";
 import {FridgeComponent} from './layout/fridge/fridge.component';
 import {MatRippleModule} from "@angular/material/core";
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatTableModule} from "@angular/material/table";
+import {MatChipsModule} from "@angular/material/chips";
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import {MatTableModule} from "@angular/material/table";
     NavigationComponent,
     IndexComponent,
     FridgeComponent,
+    AddFridgeDialog
   ],
   imports: [
     BrowserModule,
@@ -40,7 +42,8 @@ import {MatTableModule} from "@angular/material/table";
     DragDropModule,
     FlexLayoutModule,
     MatPaginatorModule,
-    MatTableModule
+    MatTableModule,
+    MatChipsModule
   ],
   providers: [authInterceptorProviders, /*authErrorInterceptorProvider*/],
   bootstrap: [AppComponent]

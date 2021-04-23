@@ -19,7 +19,7 @@ public class ProductType {
     @Column(name = "product_type_id")
     private Long productTypeId;
 
-    @OneToMany (fetch = FetchType.EAGER, mappedBy = "productType")
+    @OneToMany (fetch = FetchType.LAZY, mappedBy = "productType")
     private List<Product> products;
 
     @Column (name = "type_name", nullable = false, unique = true)

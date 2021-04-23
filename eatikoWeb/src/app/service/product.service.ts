@@ -19,4 +19,9 @@ export class ProductService {
   getAllProducts(): Observable<any>{
     return this.http.get(PRODUCT_API + "/getAllProducts");
   }
+
+  getAllProductsByFilter(type: string): Observable<any>{
+  
+    return this.http.get(PRODUCT_API + "/getAllProductsByFilter");
+  }
 }
